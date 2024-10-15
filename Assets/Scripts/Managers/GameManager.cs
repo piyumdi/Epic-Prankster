@@ -5,11 +5,14 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static Yunash.Game.GameManager;
 
 namespace Yunash.Game
 {
     public class GameManager : MonoBehaviour
     {
+        public enum GameState { Menu, Game, LevelComplete, GameOver }
+
         [SerializeField] private UIManager uiManager;
         [SerializeField] private AudioManager audioManager;
         [SerializeField] private DataManager dataManager;
@@ -19,6 +22,10 @@ namespace Yunash.Game
         public IUIService UIService;
         public IAudioService AudioService;
         public IDataService DataService;
+
+        private GameState gameState;
+
+        public static Action<GameState> onGameStateChanged;
 
         private void Awake()
         {
@@ -39,6 +46,24 @@ namespace Yunash.Game
             AudioService = audioManager;
             DataService = dataManager;
         }
+
+        public void SetGameState(GameState gamestate)
+        {
+
+            this.gameState = gamestate;
+            onGameStateChanged?.Invoke(gamestate);
+
+            Debug.Log("Game State");
+
+
+
+        }
+
+        public bool IsGameState()
+        {
+            return gameState == GameState.Game;
+        }
+
     }
 }
 
