@@ -22,7 +22,7 @@ namespace Yunash.UI
 
         void Start()
         {
-            
+            menuPanel.SetActive(true);
             gamePanel.SetActive(false);
             gameOverPanel.SetActive(false);
             SettingsPanel.SetActive(false);
