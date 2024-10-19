@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+
+
     Animator animator;
     public Transform quadTransform;
     private Vector3 initialPosition;
@@ -16,9 +18,9 @@ public class PlayerController : MonoBehaviour
     public Transform closestEnemy;
 
     public float bulletSpeed = 10f;
-    public float fireRate = 0.5f; 
-    private float nextFireTime = 0f; 
+
     public bool hasShot = false;
+
 
     private void Start()
     {
@@ -28,47 +30,83 @@ public class PlayerController : MonoBehaviour
         animator = GetComponent<Animator>();
         animator.SetBool("idle", true);
 
-        // Initialize the enemy list
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
         foreach (GameObject enemy in enemies)
         {
             enemyList.Add(enemy.transform);
         }
+
     }
 
     void Update()
     {
-        #region PLAYER MOUSE CONTROLLER WITH BULLET
+        #region PLAYER POSITIONS AND SHOOT
+        /*if (Input.GetMouseButtonDown(0) || Input.GetMouseButton(0)) 
+        {
+            animator.SetBool("attack", true);
+            animator.SetBool("idle", false);
+
+
+            closestEnemy = GetClosestEnemy(enemyList);
+
+
+            if (closestEnemy != null)
+            {
+                
+                transform.LookAt(closestEnemy);
+
+                
+                Vector3 playerPosition = transform.position;
+                playerPosition.x = closestEnemy.position.x;
+                transform.position = playerPosition;
+
+                ShootAtEnemy();
+
+            }
+
+
+        }*/
+
         AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
 
         
-        if (Input.GetMouseButton(0) && Time.time >= nextFireTime) 
+        if (Input.GetMouseButtonDown(0))
         {
             
             animator.SetBool("attack", true);
             animator.SetBool("idle", false);
-
-            closestEnemy = GetClosestEnemy(enemyList); 
+            closestEnemy = GetClosestEnemy(enemyList);
 
             if (closestEnemy != null)
             {
-                transform.LookAt(closestEnemy); 
+                
+                transform.LookAt(closestEnemy);
 
+                
                 Vector3 playerPosition = transform.position;
-                playerPosition.x = closestEnemy.position.x; 
+                playerPosition.x = closestEnemy.position.x;
                 transform.position = playerPosition;
-
-                ShootAtEnemy(); 
-                nextFireTime = Time.time + fireRate; 
             }
+
+            if(hasShot == true)
+            {
+                ShootAtEnemy();
+            }
+            
         }
 
         
-        if (stateInfo.IsName("SHOOT"))
+        if (stateInfo.IsName("SHOOT")) 
         {
-            if (stateInfo.normalizedTime < 0.1f) 
+            if (stateInfo.normalizedTime < 0.1f) // Animation just started a new loop
             {
                 hasShot = false;
+            }
+
+            if (stateInfo.normalizedTime >= 0.9f && !hasShot)
+            {
+                //ShootAtEnemy();
+                hasShot = true; 
             }
         }
 
@@ -78,16 +116,14 @@ public class PlayerController : MonoBehaviour
             animator.SetBool("attack", false);
             animator.SetBool("idle", true);
 
-            transform.position = initialPosition;
-            transform.rotation = initialRotation;
-            hasShot = false;
+            transform.position = initialPosition; 
+            transform.rotation = initialRotation; 
+            hasShot = false; 
         }
-
         #endregion
     }
 
 
-    #region CLOSEST ENEMY 
     Transform GetClosestEnemy(List<Transform> enemies)
     {
         Transform bestTarget = null;
@@ -108,10 +144,8 @@ public class PlayerController : MonoBehaviour
 
         return bestTarget;
     }
-    #endregion
 
 
-    #region SHOOT ENEMY
     void ShootAtEnemy()
     {
         if (closestEnemy != null && bulletPrefab != null && bulletSpawnPoint != null)
@@ -130,13 +164,14 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    #endregion
-
     public void ClosestVariable()
     {
+
         if (enemyList.Count > 0)
         {
             closestEnemy = GetClosestEnemy(enemyList);
         }
+
     }
+
 }
