@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-
-
     Animator animator;
     public Transform quadTransform;
     private Vector3 initialPosition;
@@ -18,9 +16,9 @@ public class PlayerController : MonoBehaviour
     public Transform closestEnemy;
 
     public float bulletSpeed = 10f;
-
+    public float fireRate = 0.5f; 
+    private float nextFireTime = 0f; 
     public bool hasShot = false;
-
 
     private void Start()
     {
@@ -30,100 +28,68 @@ public class PlayerController : MonoBehaviour
         animator = GetComponent<Animator>();
         animator.SetBool("idle", true);
 
+        // Initialize the enemy list
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
         foreach (GameObject enemy in enemies)
         {
             enemyList.Add(enemy.transform);
         }
-
     }
 
     void Update()
     {
-        #region PLAYER POSITIONS AND SHOOT
-        /*if (Input.GetMouseButtonDown(0) || Input.GetMouseButton(0)) 
-        {
-            animator.SetBool("attack", true);
-            animator.SetBool("idle", false);
-
-
-            closestEnemy = GetClosestEnemy(enemyList);
-
-
-            if (closestEnemy != null)
-            {
-                
-                transform.LookAt(closestEnemy);
-
-                
-                Vector3 playerPosition = transform.position;
-                playerPosition.x = closestEnemy.position.x;
-                transform.position = playerPosition;
-
-                ShootAtEnemy();
-
-            }
-
-
-        }*/
-
+        #region PLAYER CONTROLLER AND BULLET
         AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
 
-        
-        if (Input.GetMouseButtonDown(0))
+        // Fire bullets when the mouse is pressed (Input.GetMouseButton)
+        if (Input.GetMouseButton(0) && Time.time >= nextFireTime) // Check if enough time has passed to fire again
         {
-            
+            // Set attack animation
             animator.SetBool("attack", true);
             animator.SetBool("idle", false);
-            closestEnemy = GetClosestEnemy(enemyList);
+
+            closestEnemy = GetClosestEnemy(enemyList); // Find the closest enemy
 
             if (closestEnemy != null)
             {
-                
-                transform.LookAt(closestEnemy);
+                transform.LookAt(closestEnemy); // Face the closest enemy
 
-                
                 Vector3 playerPosition = transform.position;
-                playerPosition.x = closestEnemy.position.x;
+                playerPosition.x = closestEnemy.position.x; // Optional: Only move on the X axis
                 transform.position = playerPosition;
-            }
 
-            if(hasShot == true)
-            {
-                ShootAtEnemy();
+                ShootAtEnemy(); // Shoot at the closest enemy
+                nextFireTime = Time.time + fireRate; // Update next fire time based on fire rate
             }
-            
         }
 
-        
-        if (stateInfo.IsName("SHOOT")) 
+        // Reset the hasShot flag if the animation starts a new loop
+        if (stateInfo.IsName("SHOOT"))
         {
             if (stateInfo.normalizedTime < 0.1f) // Animation just started a new loop
             {
                 hasShot = false;
             }
-
-            if (stateInfo.normalizedTime >= 0.9f && !hasShot)
-            {
-                //ShootAtEnemy();
-                hasShot = true; 
-            }
         }
 
-        
+        // Reset to idle when mouse button is released
         if (Input.GetMouseButtonUp(0))
         {
             animator.SetBool("attack", false);
             animator.SetBool("idle", true);
 
-            transform.position = initialPosition; 
-            transform.rotation = initialRotation; 
-            hasShot = false; 
+            transform.position = initialPosition;
+            transform.rotation = initialRotation;
+            hasShot = false;
         }
+
         #endregion
     }
 
+    #region ClosestEnemy
 
+
+    // Find the closest enemy
     Transform GetClosestEnemy(List<Transform> enemies)
     {
         Transform bestTarget = null;
@@ -145,7 +111,10 @@ public class PlayerController : MonoBehaviour
         return bestTarget;
     }
 
+    #endregion
+    
 
+    #region Shoot Enemy
     void ShootAtEnemy()
     {
         if (closestEnemy != null && bulletPrefab != null && bulletSpawnPoint != null)
@@ -164,14 +133,13 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    #endregion
+
     public void ClosestVariable()
     {
-
         if (enemyList.Count > 0)
         {
             closestEnemy = GetClosestEnemy(enemyList);
         }
-
     }
-
 }
