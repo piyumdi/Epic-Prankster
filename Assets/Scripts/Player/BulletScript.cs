@@ -55,8 +55,9 @@ public class BulletScript : MonoBehaviour
     {
         if (other.gameObject.tag == "Enemy" && !isEnemy)
         {
-            
-            //other.gameObject.GetComponent<EnemyScript>().TakeDamage();
+
+            other.gameObject.GetComponent<EnemyController>().TakeDamage();
+
             Destroy(this.gameObject);
         }
 
