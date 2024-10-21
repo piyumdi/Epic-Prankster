@@ -2528,6 +2528,7 @@ Transform:
   m_Children:
   - {fileID: 3528720831297056720}
   - {fileID: 528740014608010421}
+  - {fileID: 5689732722046973279}
   m_Father: {fileID: 8786069608974766825}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3437,6 +3438,57 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &8900631465104024879
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5689732722046973279}
+  - component: {fileID: 6465836445974826913}
+  m_Layer: 0
+  m_Name: VisionCone
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5689732722046973279
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8900631465104024879}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 275025720838696138}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6465836445974826913
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8900631465104024879}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1bec35df7763cb4fae47ac8d65f6d04, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  VisionConeMaterial: {fileID: 2100000, guid: 1654b532c0b07eb4a8f17aa8f67061c7, type: 2}
+  VisionRange: 3
+  VisionAngle: 90
+  VisionObstructingLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  VisionConeResolution: 120
 --- !u!1 &9021532323430770605
 GameObject:
   m_ObjectHideFlags: 0
@@ -3666,6 +3718,10 @@ PrefabInstance:
       propertyPath: livesText
       value: 
       objectReference: {fileID: 8841964685370551345}
+    - target: {fileID: 6020234032781295752, guid: 34291e87a6c70a24a9a6b9264911662c, type: 3}
+      propertyPath: visionCone
+      value: 
+      objectReference: {fileID: 6465836445974826913}
     - target: {fileID: 8669121647164692176, guid: 34291e87a6c70a24a9a6b9264911662c, type: 3}
       propertyPath: m_LocalPosition.z
       value: 0
