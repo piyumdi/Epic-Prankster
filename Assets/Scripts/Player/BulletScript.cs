@@ -1,38 +1,34 @@
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class BulletScript : MonoBehaviour
 {
-    public float moveSpeed = 10f; 
+    public float moveSpeed = 10f;
     public bool isEnemy;
-    private Transform target; 
-    private PlayerController getClosestEnemy; 
-    private Vector3 moveDirection; 
-    private float initialY; 
+    private Transform target;
+    private PlayerController getClosestEnemy;
+    private Vector3 moveDirection;
+    private float initialY;
 
     void Start()
     {
-        initialY = transform.position.y; 
+        initialY = transform.position.y;
 
-        if (isEnemy == false)
+        if (!isEnemy)
         {
-            
             getClosestEnemy = FindObjectOfType<PlayerController>();
             getClosestEnemy.ClosestVariable();
-
-            
             target = getClosestEnemy.closestEnemy;
         }
         else
         {
-            
             target = GameObject.FindWithTag("Player").transform;
         }
 
         if (target != null)
         {
-            
             moveDirection = (target.position - transform.position).normalized;
             moveDirection.y = 0; // Lock the Y axis
         }
@@ -44,7 +40,6 @@ public class BulletScript : MonoBehaviour
     {
         if (target != null)
         {
-            
             transform.position = Vector3.MoveTowards(transform.position,
                                                      new Vector3(target.position.x, initialY, target.position.z),
                                                      moveSpeed * Time.deltaTime);
@@ -55,15 +50,18 @@ public class BulletScript : MonoBehaviour
     {
         if (other.gameObject.tag == "Enemy" && !isEnemy)
         {
-            
-            //other.gameObject.GetComponent<EnemyScript>().TakeDamage();
-            Destroy(this.gameObject);
+            // Call OnHit on the enemy
+            EnemyController enemyController = other.gameObject.GetComponent<EnemyController>();
+            if (enemyController != null)
+            {
+                enemyController.OnHit(); // Trigger enemy hit response
+            }
+            Destroy(this.gameObject); // Destroy the bullet
         }
 
         if (other.gameObject.tag == "Player" && isEnemy)
         {
-            
-            //other.gameObject.GetComponent<PlayerController>().TakeDamage();
+            // Logic for when player is hit by an enemy bullet
             Destroy(this.gameObject);
         }
     }
