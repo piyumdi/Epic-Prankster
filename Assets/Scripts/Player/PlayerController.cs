@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Yunash.Game;
 
 public class PlayerController : MonoBehaviour
 {
@@ -81,9 +82,10 @@ public class PlayerController : MonoBehaviour
             transform.position = initialPosition;
             transform.rotation = initialRotation;
             hasShot = false;
+        CheckForLevelComplete();
         }
-
         #endregion
+
     }
 
     #region ClosestEnemy
@@ -130,6 +132,7 @@ public class PlayerController : MonoBehaviour
                 rb.velocity = direction * bulletSpeed;
                 rb.AddForce(direction * bulletSpeed, ForceMode.VelocityChange);
             }
+
         }
     }
 
@@ -140,6 +143,14 @@ public class PlayerController : MonoBehaviour
         if (enemyList.Count > 0)
         {
             closestEnemy = GetClosestEnemy(enemyList);
+        }
+    }
+
+    public void CheckForLevelComplete()
+    {
+        if (enemyList.Count == 0)
+        {
+            GameManager.Instance.SetGameState(GameManager.GameState.LevelComplete);
         }
     }
 }

@@ -50,6 +50,7 @@ using UnityEngine.UI; // Make sure to include this for UI handling
 
 public class RoomManager : MonoBehaviour
 {
+    public static RoomManager instance;
     public List<GameObject> rooms; // List of room prefabs
     public Transform roomPosition; // The fixed position where rooms will appear
     public Button nextLevelButton; // Reference to the "Next Level" button
@@ -58,13 +59,30 @@ public class RoomManager : MonoBehaviour
 
     private void Start()
     {
+        // Get the current level from PlayerPrefs, default to 0 if not set
+        roomIndex = GetLevel();
+
+        // Spawn the first room or the current saved level
         if (rooms.Count > 0)
         {
-            SpawnRoom(roomIndex); // Start with the first room
+            SpawnRoom(roomIndex);
         }
 
         // Add listener to the button to trigger room change
         nextLevelButton.onClick.AddListener(ChangeRoom);
+    }
+
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject); // Optional: If you want to persist the RoomManager across scenes
+        }
+        else
+        {
+            Destroy(gameObject); // Ensure there's only one instance
+        }
     }
 
     private void SpawnRoom(int index)
@@ -82,5 +100,19 @@ public class RoomManager : MonoBehaviour
     {
         roomIndex = (roomIndex + 1) % rooms.Count; // Loop through the rooms
         SpawnRoom(roomIndex); // Spawn the next room
+        SaveLevel(roomIndex); // Save the current room as the current level
+    }
+
+    private void SaveLevel(int currentLevel)
+    {
+        
+        PlayerPrefs.SetInt("Level", currentLevel);
+        PlayerPrefs.Save();
+    }
+
+    public int GetLevel()
+    {
+        
+        return PlayerPrefs.GetInt("Level", 0);
     }
 }

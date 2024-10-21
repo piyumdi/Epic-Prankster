@@ -47,6 +47,12 @@ namespace Yunash.Game
             DataService = dataManager;
         }
 
+        void Start()
+        {
+            //PlayerPrefs.DeleteAll();
+        }
+
+
         public void SetGameState(GameState gamestate)
         {
 

@@ -50,18 +50,19 @@ public class BulletScript : MonoBehaviour
     {
         if (other.gameObject.tag == "Enemy" && !isEnemy)
         {
-            // Call OnHit on the enemy
+            
             EnemyController enemyController = other.gameObject.GetComponent<EnemyController>();
             if (enemyController != null)
             {
-                enemyController.OnHit(); // Trigger enemy hit response
+                enemyController.OnHit(); 
+                enemyController.TakeDamage(); 
             }
-            Destroy(this.gameObject); // Destroy the bullet
+            Destroy(this.gameObject); 
         }
 
         if (other.gameObject.tag == "Player" && isEnemy)
         {
-            // Logic for when player is hit by an enemy bullet
+            
             Destroy(this.gameObject);
         }
     }

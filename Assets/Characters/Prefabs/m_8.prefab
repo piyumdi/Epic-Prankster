@@ -477,6 +477,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9bdf610a80da39644804d21ff8b40535, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rotationSpeed: 180
+  turnBackDelay: 3
+  deadCount: {fileID: 0}
+  lives: 5
+  livesText: {fileID: 0}
+  isEnemy: 1
 --- !u!1 &2115132397608456890
 GameObject:
   m_ObjectHideFlags: 0

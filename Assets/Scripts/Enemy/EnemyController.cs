@@ -1,6 +1,7 @@
 
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class EnemyController : MonoBehaviour
@@ -11,16 +12,24 @@ public class EnemyController : MonoBehaviour
     private float lastHitTime;         // Time of the last hit
     private Quaternion targetRotation; // Target rotation
     private bool facingPlayer = false; // Is the enemy currently facing the player?
+    public GameObject deadCount;
+
+
+    public int lives = 5;
+    public TMP_Text livesText;
+    public bool isEnemy = true;
 
     void Start()
     {
-        targetRotation = transform.rotation; // Initial rotation (facing away from player)
-        lastHitTime = -turnBackDelay; // Initialize so that the enemy doesn't immediately turn back
+        targetRotation = transform.rotation; 
+        lastHitTime = -turnBackDelay;
+
+        UpdateLivesText();
     }
 
     void Update()
     {
-        // If the enemy has been hit and 3 seconds have passed with no hits, turn the enemy back
+        
         if (facingPlayer && Time.time - lastHitTime >= turnBackDelay)
         {
             TurnBack();
@@ -66,4 +75,31 @@ public class EnemyController : MonoBehaviour
         facingPlayer = false; // The enemy is no longer facing the player
         hit = true; // Start rotating the enemy back
     }
+
+    public void TakeDamage()
+    {
+        lives -= 1;
+        UpdateLivesText();
+
+        if (lives <= 0)
+        {
+            Die();
+        }
+    }
+
+    void UpdateLivesText()
+    {
+        if (livesText != null)
+        {
+            livesText.text = lives.ToString();
+        }
+    }
+
+    void Die()
+    {
+        Debug.Log("Enemy died!");
+        Destroy(gameObject);
+        Destroy(deadCount);
+    }
+
 }

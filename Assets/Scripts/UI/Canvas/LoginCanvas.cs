@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
@@ -19,6 +20,9 @@ namespace Yunash.UI
         [SerializeField] private GameObject PausePanel;
         [SerializeField] private GameObject ShopPanel;
 
+        [SerializeField] private TMP_Text levelText;
+
+
 
         void Start()
         {
@@ -28,9 +32,20 @@ namespace Yunash.UI
             SettingsPanel.SetActive(false);
             PausePanel.SetActive(false);
             ShopPanel.SetActive(false);
+            levelCompletePanel.SetActive(false);
 
             GameManager.onGameStateChanged += GameStateChangedCallBack;
+                StartCoroutine(WaitForRoomManager());
+
+            
         }
+        IEnumerator WaitForRoomManager()
+        {
+            yield return new WaitUntil(() => RoomManager.instance != null); // Wait until RoomManager instance is ready
+
+            levelText.text = "Level " + (RoomManager.instance.GetLevel() + 1);
+        }
+
 
         private void OnDestroy()
         {
