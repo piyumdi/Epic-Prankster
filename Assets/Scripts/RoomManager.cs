@@ -101,15 +101,17 @@ public class RoomManager : MonoBehaviour
         roomIndex = (roomIndex + 1) % rooms.Count; // Loop through the rooms
         SpawnRoom(roomIndex); // Spawn the next room
         SaveLevel(roomIndex); // Save the current room as the current level
+        
+
     }
 
     private void SaveLevel(int currentLevel)
     {
         
-        PlayerPrefs.SetInt("Level", currentLevel);
+        //PlayerPrefs.SetInt("Level", currentLevel);
         PlayerPrefs.Save();
     }
-
+ 
     public int GetLevel()
     {
         

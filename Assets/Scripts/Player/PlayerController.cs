@@ -164,6 +164,7 @@ using Yunash.Game;
 
 public class PlayerController : MonoBehaviour
 {
+    public static PlayerController Instance;
     Animator animator;
     public Transform quadTransform;
     private Vector3 initialPosition;
@@ -189,20 +190,22 @@ public class PlayerController : MonoBehaviour
         animator.SetBool("idle", true);
 
         // Initialize the enemy list
+        
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
-        foreach (GameObject enemy in enemies)
-        {
-            enemyList.Add(enemy.transform);
-        }
+                foreach (GameObject enemy in enemies)
+                {
+                    enemyList.Add(enemy.transform);
+                }
     }
+
+
 
     void Update()
     {
         #region PLAYER CONTROLLER AND BULLET
         AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
 
-        // Fire bullets when the mouse is pressed (Input.GetMouseButton)
-        if (Input.GetMouseButton(0) && Time.time >= nextFireTime) // Check if enough time has passed to fire again
+        if (Input.GetMouseButton(0) && Time.time >= nextFireTime) 
         {
             // Set attack animation
             animator.SetBool("attack", true);
@@ -308,6 +311,19 @@ public class PlayerController : MonoBehaviour
         {
             closestEnemy = GetClosestEnemy(enemyList);
         }
+    }
+
+    public void InitializeEnemiesForNewLevel()
+    {
+        enemyList.Clear();  // Clear old enemies
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+
+        foreach (GameObject enemy in enemies)
+        {
+            enemyList.Add(enemy.transform);
+        }
+
+        ClosestVariable();  // Find the closest enemy again
     }
 
     public void CheckForLevelComplete()
