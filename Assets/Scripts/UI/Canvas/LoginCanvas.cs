@@ -126,15 +126,13 @@ namespace Yunash.UI
 
         public void HideLevelComplete()
         {
+
+            Debug.Log("Clicked");
             gamePanel.SetActive(true);
             levelCompletePanel.SetActive(false);
 
-            // Ensure the player finds a new target
-            if (PlayerController.Instance != null)
-            {
-                PlayerController.Instance.InitializeEnemiesForNewLevel();
-                PlayerController.Instance.ClosestVariable(); // Find the closest enemy again
-            }
+            Debug.Log("end");
+            
         }
     }
 
