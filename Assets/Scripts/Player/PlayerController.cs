@@ -314,23 +314,11 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void InitializeEnemiesForNewLevel()
-    {
-        enemyList.Clear();  // Clear old enemies
-        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
-
-        foreach (GameObject enemy in enemies)
-        {
-            enemyList.Add(enemy.transform);
-        }
-
-        ClosestVariable();  // Find the closest enemy again
-    }
-
+    
     public void CheckForLevelComplete()
     {
         // Remove null references from the enemy list
-        enemyList.RemoveAll(enemy => enemy == null);
+        //enemyList.RemoveAll(enemy => enemy == null);
 
         if (enemyList.Count == 0)
         {

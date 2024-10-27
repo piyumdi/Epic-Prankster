@@ -94,7 +94,11 @@ public class RoomManager : MonoBehaviour
 
         // Instantiate the new room at the fixed position with 180 degrees Y rotation
         currentRoom = Instantiate(rooms[index], roomPosition.position, Quaternion.Euler(0, 180, 0));
+
+        // Set the currentRoom as a child of roomPosition to ensure it stays within that transform's space
+        currentRoom.transform.SetParent(roomPosition, false);
     }
+
 
     private void ChangeRoom()
     {

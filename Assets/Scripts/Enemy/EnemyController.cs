@@ -186,7 +186,7 @@ public class EnemyController : MonoBehaviour
     private bool facingPlayer = false; // Is the enemy currently facing the player?
     public GameObject deadCount;
 
-    public VisionCone visionCone; // Reference to the VisionCone script
+    public GameObject visionCone; // Reference to the VisionCone script
     public int lives = 5;
     public TMP_Text livesText;
     public bool isEnemy = true;
@@ -204,20 +204,13 @@ public class EnemyController : MonoBehaviour
         UpdateLivesText();
 
         // Disable the vision cone at the start
-        if (visionCone != null)
-        {
-            visionCone.enabled = false;
-            visionCone.VisionAngle = 90f; // Start with a full cone
-        }
+        
     }
 
     void Update()
     {
         // If the enemy is facing the player and 3 seconds have passed since the last hit, start scanning the room
-        if (facingPlayer && !isScanning && Time.time - lastHitTime >= turnBackDelay)
-        {
-            StartCoroutine(ScanRoom());
-        }
+        
 
         // Rotate the enemy when needed
         if (hit)
@@ -244,7 +237,7 @@ public class EnemyController : MonoBehaviour
             // Enable the vision cone when hit
             if (visionCone != null)
             {
-                visionCone.enabled = true;
+                visionCone.SetActive(true);
             }
         }
 
@@ -281,7 +274,7 @@ public class EnemyController : MonoBehaviour
         // Disable the vision cone when the enemy turns back
         if (visionCone != null)
         {
-            visionCone.enabled = false; // Disable the vision cone after turning back
+            visionCone.SetActive(false); // Disable the vision cone after turning back
         }
     }
 
@@ -310,44 +303,13 @@ public class EnemyController : MonoBehaviour
         // Disable the vision cone when the enemy dies
         if (visionCone != null)
         {
-            visionCone.enabled = false; // Disable vision cone on death
+            visionCone.SetActive(false); // Disable vision cone on death
         }
         Destroy(gameObject);
         Destroy(deadCount);
     }
 
-    // Coroutine to handle the enemy scanning the room for 3 seconds
-    IEnumerator ScanRoom()
-    {
-        isScanning = true;
 
-        // Gradually decrease the vision angle from 90 to 30 over 3 seconds
-        float elapsedTime = 0f;
-        float duration = 5f;
-        float startAngle = 90f;
-        float targetAngle = 30f;
-
-        while (elapsedTime < duration)
-        {
-            if (visionCone != null)
-            {
-                visionCone.VisionAngle = Mathf.Lerp(startAngle, targetAngle, elapsedTime / duration); // Interpolate the vision angle
-            }
-            elapsedTime += Time.deltaTime;
-            yield return null; // Wait for the next frame
-        }
-
-        // After 3 seconds, turn the enemy back
-        TurnBack();
-
-        // Reset vision cone angle to 90 after turning back
-        if (visionCone != null)
-        {
-            visionCone.VisionAngle = 90f;
-        }
-
-        isScanning = false;
-    }
 
     // Detect if the player is within the reduced vision cone (angle check)
     private void DetectPlayerInVisionCone()
@@ -355,20 +317,6 @@ public class EnemyController : MonoBehaviour
         Vector3 directionToPlayer = (player.transform.position - transform.position).normalized;
         float angleToPlayer = Vector3.Angle(transform.forward, directionToPlayer);
 
-        if (angleToPlayer < visionCone.VisionAngle)
-        {
-            isPlayerInVision = true; // Player is within the vision cone angle
-
-            // If both vision cone hits and the angle is within 10 degrees
-            if (visionCone.VisionAngle <= 10f && isPlayerInVision)
-            {
-                TriggerGameOver(); // Trigger game over
-            }
-        }
-        else
-        {
-            isPlayerInVision = false; // Player is outside the vision cone
-        }
     }
 
     private void TriggerGameOver()
