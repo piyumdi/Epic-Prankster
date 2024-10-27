@@ -85,7 +85,7 @@ namespace Yunash.UI
 
         public void ShowGameOver()
         {
-            gamePanel.SetActive(false);
+            //gamePanel.SetActive(false);
             gameOverPanel.SetActive(true);
 
         }
