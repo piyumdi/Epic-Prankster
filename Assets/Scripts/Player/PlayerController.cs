@@ -191,22 +191,20 @@ public class PlayerController : MonoBehaviour
         animator.SetBool("idle", true);
 
         // Initialize the enemy list
-        
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
-                foreach (GameObject enemy in enemies)
-                {
-                    enemyList.Add(enemy.transform);
-                }
+        foreach (GameObject enemy in enemies)
+        {
+            enemyList.Add(enemy.transform);
+        }
     }
-
-
 
     void Update()
     {
         #region PLAYER CONTROLLER AND BULLET
         AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
         CheckForLevelComplete();
-        if (Input.GetMouseButton(0) && Time.time >= nextFireTime) 
+
+        if (Input.GetMouseButton(0) && Time.time >= nextFireTime)
         {
             // Set attack animation
             animator.SetBool("attack", true);
@@ -245,10 +243,8 @@ public class PlayerController : MonoBehaviour
             transform.position = initialPosition;
             transform.rotation = initialRotation;
             hasShot = false;
-            
         }
         #endregion
-
     }
 
     #region ClosestEnemy
@@ -283,7 +279,6 @@ public class PlayerController : MonoBehaviour
 
     #endregion
 
-
     #region Shoot Enemy
     void ShootAtEnemy()
     {
@@ -300,10 +295,8 @@ public class PlayerController : MonoBehaviour
                 rb.velocity = direction * bulletSpeed;
                 rb.AddForce(direction * bulletSpeed, ForceMode.VelocityChange);
             }
-
         }
     }
-
     #endregion
 
     public void ClosestVariable()
@@ -314,15 +307,29 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    
     public void CheckForLevelComplete()
     {
         // Remove null references from the enemy list
-        //enemyList.RemoveAll(enemy => enemy == null);
+        enemyList.RemoveAll(enemy => enemy == null);
 
         if (enemyList.Count == 0)
         {
-            GameManager.Instance.SetGameState(GameManager.GameState.LevelComplete);
+            // Play WIN animation
+            //animator.SetTrigger("WIN");
+            animator.SetBool("Dance", true);
+
+
+            // Start coroutine to wait 2 seconds and show level complete
+            StartCoroutine(HandleLevelComplete());
         }
+    }
+
+    private IEnumerator HandleLevelComplete()
+    {
+        // Wait for 2 seconds
+        yield return new WaitForSeconds(2f);
+
+        // Show the level complete panel
+        GameManager.Instance.SetGameState(GameManager.GameState.LevelComplete);
     }
 }

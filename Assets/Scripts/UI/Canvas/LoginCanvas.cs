@@ -92,7 +92,7 @@ namespace Yunash.UI
 
         private void ShowLevelComplete()
         {
-            gamePanel.SetActive(false);
+            //gamePanel.SetActive(false);
             levelCompletePanel.SetActive(true);
         }
 
