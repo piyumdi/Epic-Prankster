@@ -205,7 +205,7 @@ public class PlayerController : MonoBehaviour
     {
         #region PLAYER CONTROLLER AND BULLET
         AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
-
+        CheckForLevelComplete();
         if (Input.GetMouseButton(0) && Time.time >= nextFireTime) 
         {
             // Set attack animation
@@ -245,7 +245,7 @@ public class PlayerController : MonoBehaviour
             transform.position = initialPosition;
             transform.rotation = initialRotation;
             hasShot = false;
-            CheckForLevelComplete();
+            
         }
         #endregion
 

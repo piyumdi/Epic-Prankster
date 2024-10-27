@@ -45,6 +45,7 @@ public class RoomManager : MonoBehaviour
 
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI; // Make sure to include this for UI handling
 
@@ -57,10 +58,14 @@ public class RoomManager : MonoBehaviour
     private GameObject currentRoom;
     private int roomIndex = 0;
 
+    [SerializeField] private TMP_Text levelText;
+    private int totalLevelCount = 0; // Keep track of total levels completed
+
     private void Start()
     {
         // Get the current level from PlayerPrefs, default to 0 if not set
-        roomIndex = GetLevel();
+        roomIndex = GetLevelIndex();
+        totalLevelCount = GetTotalLevelCount();
 
         // Spawn the first room or the current saved level
         if (rooms.Count > 0)
@@ -77,11 +82,11 @@ public class RoomManager : MonoBehaviour
         if (instance == null)
         {
             instance = this;
-            DontDestroyOnLoad(gameObject); // Optional: If you want to persist the RoomManager across scenes
+            DontDestroyOnLoad(gameObject); 
         }
         else
         {
-            Destroy(gameObject); // Ensure there's only one instance
+            Destroy(gameObject); 
         }
     }
 
@@ -89,36 +94,46 @@ public class RoomManager : MonoBehaviour
     {
         if (currentRoom != null)
         {
-            Destroy(currentRoom); // Destroy the current room
+            Destroy(currentRoom); 
         }
 
-        // Instantiate the new room at the fixed position with 180 degrees Y rotation
         currentRoom = Instantiate(rooms[index], roomPosition.position, Quaternion.Euler(0, 180, 0));
 
-        // Set the currentRoom as a child of roomPosition to ensure it stays within that transform's space
+        
+        levelText.text = "Level " + (totalLevelCount + 1);
+
+        
         currentRoom.transform.SetParent(roomPosition, false);
     }
-
 
     private void ChangeRoom()
     {
         roomIndex = (roomIndex + 1) % rooms.Count; // Loop through the rooms
+        totalLevelCount++; 
+
         SpawnRoom(roomIndex); // Spawn the next room
-        SaveLevel(roomIndex); // Save the current room as the current level
-        
-
+        SaveProgress(roomIndex, totalLevelCount); 
     }
 
-    private void SaveLevel(int currentLevel)
+    private void SaveProgress(int currentRoomIndex, int totalLevels)
     {
-        
-        //PlayerPrefs.SetInt("Level", currentLevel);
-        PlayerPrefs.Save();
+        PlayerPrefs.SetInt("LevelIndex", currentRoomIndex); 
+        PlayerPrefs.SetInt("TotalLevelCount", totalLevels); 
+        PlayerPrefs.Save(); // Ensure data is written
     }
- 
-    public int GetLevel()
+
+    public int GetLevelIndex()
     {
-        
-        return PlayerPrefs.GetInt("Level", 0);
+        return PlayerPrefs.GetInt("LevelIndex", 0); 
+    }
+
+    public int GetTotalLevelCount()
+    {
+        return PlayerPrefs.GetInt("TotalLevelCount", 0); 
+    }
+
+    private void OnApplicationQuit()
+    {
+        SaveProgress(roomIndex, totalLevelCount); 
     }
 }

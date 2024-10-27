@@ -43,7 +43,7 @@ namespace Yunash.UI
         {
             yield return new WaitUntil(() => RoomManager.instance != null); // Wait until RoomManager instance is ready
 
-            levelText.text = "Level " + (RoomManager.instance.GetLevel() + 1);
+            //levelText.text = "Level " + (RoomManager.instance.GetLevel() + 1);
         }
 
 
