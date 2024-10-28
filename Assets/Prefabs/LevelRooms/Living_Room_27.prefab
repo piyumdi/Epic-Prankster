@@ -323,6 +323,7 @@ GameObject:
   - component: {fileID: 1993572402951430911}
   - component: {fileID: 9036827445422864529}
   - component: {fileID: 5663671606882597077}
+  - component: {fileID: 6958809974744760958}
   m_Layer: 0
   m_Name: Room_27_Baen_bag_2
   m_TagString: Untagged
@@ -395,6 +396,19 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &6958809974744760958
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1842197213442831627}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.1758764, y: 0.40920958, z: 1.1758764}
+  m_Center: {x: 0.000000059604645, y: 0.18840486, z: -0.00000062584877}
 --- !u!1 &1975613897094408208
 GameObject:
   m_ObjectHideFlags: 0

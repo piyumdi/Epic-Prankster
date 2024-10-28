@@ -677,6 +677,7 @@ GameObject:
   - component: {fileID: 3488005281450617193}
   - component: {fileID: 3355533587453534326}
   - component: {fileID: 9090902005240901007}
+  - component: {fileID: 4034718840420991267}
   m_Layer: 0
   m_Name: Room_18_Padded_stool_1
   m_TagString: Untagged
@@ -749,6 +750,19 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &4034718840420991267
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3781202361968836674}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.4479713, y: 0.47914279, z: 1.614297}
+  m_Center: {x: 0.21992514, y: 0.23957139, z: 0.3030913}
 --- !u!1 &5091804654256673100
 GameObject:
   m_ObjectHideFlags: 0

@@ -990,6 +990,7 @@ GameObject:
   - component: {fileID: 4029247660747804849}
   - component: {fileID: 7088365671537295321}
   - component: {fileID: 1050091597851408633}
+  - component: {fileID: 6196422285856185598}
   m_Layer: 0
   m_Name: Room_33_Table_Star_1
   m_TagString: Untagged
@@ -1062,6 +1063,19 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &6196422285856185598
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2903357938289619151}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.4508837, y: 0.54701996, z: 1.4508832}
+  m_Center: {x: 0.08396584, y: 0.27350998, z: 0.08396396}
 --- !u!1 &3239435318679717173
 GameObject:
   m_ObjectHideFlags: 0

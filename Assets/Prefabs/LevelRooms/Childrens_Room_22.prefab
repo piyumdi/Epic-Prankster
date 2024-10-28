@@ -343,6 +343,7 @@ GameObject:
   - component: {fileID: 8550437921001550885}
   - component: {fileID: 8490523393808341041}
   - component: {fileID: 6203607443118955009}
+  - component: {fileID: 2678830285844873325}
   m_Layer: 0
   m_Name: Room_22_Bedside_cabinet_1
   m_TagString: Untagged
@@ -415,6 +416,19 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &2678830285844873325
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1134517491966230385}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.1073875, y: 0.8596716, z: 1.1073877}
+  m_Center: {x: 0.0000005960464, y: 0.4298346, z: 0.0000009834765}
 --- !u!1 &1415856476813608490
 GameObject:
   m_ObjectHideFlags: 0

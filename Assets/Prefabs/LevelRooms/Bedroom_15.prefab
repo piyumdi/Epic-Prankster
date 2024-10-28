@@ -1682,12 +1682,13 @@ GameObject:
   - component: {fileID: 7568989833437804345}
   - component: {fileID: 4619701000119867727}
   - component: {fileID: 8596761923787829615}
+  - component: {fileID: 4172270053023623402}
   m_Layer: 0
   m_Name: Room_15_Baen_bag_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 1
   m_IsActive: 1
 --- !u!4 &7568989833437804345
 Transform:
@@ -1754,6 +1755,19 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &4172270053023623402
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4662485043954515061}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.5629048, y: 0.78317016, z: 1.5612803}
+  m_Center: {x: -0.00001552701, y: 0.39158508, z: 0.0005339086}
 --- !u!1 &4700860417781383276
 GameObject:
   m_ObjectHideFlags: 0

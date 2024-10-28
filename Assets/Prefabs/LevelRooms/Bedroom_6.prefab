@@ -2307,6 +2307,24 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: f57986a1c732ad843baabab5111a7532, type: 3}
   m_PrefabInstance: {fileID: 7376447104136807956}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &7682875289537723205 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: f57986a1c732ad843baabab5111a7532, type: 3}
+  m_PrefabInstance: {fileID: 7376447104136807956}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &2375400738553100792
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7682875289537723205}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.1004052, y: 2.0239325, z: 0.9887649}
+  m_Center: {x: -0.0000016391277, y: 1.0119662, z: 0.000000014901161}
 --- !u!1001 &8305348315089989796
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2373,7 +2391,7 @@ PrefabInstance:
     - target: {fileID: 6494348265627056729, guid: 91f663a5e2eb44b40976da9e9c4641b9, type: 3}
       propertyPath: visionCone
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1882539123029776, guid: 57a6d564e20c50b42bc5c97761dde132, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 91f663a5e2eb44b40976da9e9c4641b9, type: 3}
 --- !u!4 &7508191974942043100 stripped

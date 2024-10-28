@@ -2326,6 +2326,7 @@ GameObject:
   - component: {fileID: 107475944526697940}
   - component: {fileID: 658708801878253187}
   - component: {fileID: 4184878965512015768}
+  - component: {fileID: 7279141988202496877}
   m_Layer: 0
   m_Name: Room_34_Laundry_Basket_1
   m_TagString: Untagged
@@ -2398,6 +2399,19 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &7279141988202496877
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6844427701627480568}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.651543, y: 0.84181947, z: 0.6817162}
+  m_Center: {x: -0.000000059604645, y: 0.42090973, z: 0.000804618}
 --- !u!1 &7459649314035505142
 GameObject:
   m_ObjectHideFlags: 0
