@@ -19,10 +19,10 @@ namespace Yunash.UI
         [SerializeField] private GameObject SettingsPanel;
         [SerializeField] private GameObject PausePanel;
         [SerializeField] private GameObject ShopPanel;
-        //
+        
         [SerializeField] private GameObject gameTipsPanel;
         [SerializeField] private GameObject ranksPanel;
-        //
+        
 
         [SerializeField] private TMP_Text levelText;
 
@@ -37,10 +37,10 @@ namespace Yunash.UI
             PausePanel.SetActive(false);
             ShopPanel.SetActive(false);
             levelCompletePanel.SetActive(false);
-            //
+            
             gameTipsPanel.SetActive(false); // Hide GameTips panel initially
             ranksPanel.SetActive(false); // Hide Ranks panel initially
-            //
+            
 
             GameManager.onGameStateChanged += GameStateChangedCallBack;
                 StartCoroutine(WaitForRoomManager());
@@ -55,7 +55,7 @@ namespace Yunash.UI
         }
 
 
-        //
+        
         public void ShowGameTipsPanel()
         {
             gameTipsPanel.SetActive(true);
@@ -75,7 +75,7 @@ namespace Yunash.UI
         {
             ranksPanel.SetActive(false);
         }
-        //
+        
 
         private void OnDestroy()
         {
