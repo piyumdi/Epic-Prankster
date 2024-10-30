@@ -133,6 +133,9 @@ MonoBehaviour:
   VisionObstructingLayer:
     serializedVersion: 2
     m_Bits: 64
+  PlayerLayer:
+    serializedVersion: 2
+    m_Bits: 8
   VisionConeResolution: 120
 --- !u!1 &1513853971352949470
 GameObject:
@@ -812,8 +815,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.4479713, y: 0.47914279, z: 1.614297}
-  m_Center: {x: 0.21992514, y: 0.23957139, z: 0.3030913}
+  m_Size: {x: 1.4375637, y: 0.47914279, z: 1.9928607}
+  m_Center: {x: 0.21472193, y: 0.23957139, z: 0.30931288}
 --- !u!1 &5091804654256673100
 GameObject:
   m_ObjectHideFlags: 0
