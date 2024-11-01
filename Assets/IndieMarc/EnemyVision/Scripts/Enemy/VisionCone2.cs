@@ -29,7 +29,11 @@ namespace IndieMarc.EnemyVision
         [Header("Player Detection")]
         public Transform player; // Reference to the player's transform
         public LayerMask player_mask;
-       
+
+        //
+        public float detectInterval = 0.1f; // Interval between detection checks
+        private float detectTimer = 0f;     // Timer for detection intervals
+        //
 
         private MeshRenderer render;
         private MeshFilter mesh;
@@ -88,7 +92,7 @@ namespace IndieMarc.EnemyVision
             transform.position = target.eye.transform.position;
             transform.rotation = target.transform.rotation;
 
-            if (timer > refresh_rate)
+            /*if (timer > refresh_rate)
             {
                 timer = 0f;
 
@@ -102,9 +106,28 @@ namespace IndieMarc.EnemyVision
                     UpdateFarLevel(mesh_far, vision_near_range, vision_range - vision_near_range);
             }
 
-            DetectPlayer();
+            DetectPlayer();*/
+
+            if (timer > refresh_rate)
+            {
+                timer = 0f;
+
+                float range = show_two_levels ? vision_near_range : vision_range;
+                UpdateMainLevel(mesh, range);
+
+                if (show_two_levels)
+                    UpdateFarLevel(mesh_far, vision_near_range, vision_range - vision_near_range);
+            }
+
+            // Periodic player detection check based on detectInterval
+            if (detectTimer > detectInterval)
+            {
+                detectTimer = 0f;
+                DetectPlayer();
+            }
         }
 
+        /*
         private void DetectPlayer()
         {
             Vector3 directionToPlayer = (player.position - transform.position).normalized;
@@ -121,6 +144,30 @@ namespace IndieMarc.EnemyVision
                 }
             }
         }
+        */
+
+        private void DetectPlayer()
+        {
+            Vector3 directionToPlayer = (player.position - transform.position).normalized;
+            float distanceToPlayer = Vector3.Distance(transform.position, player.position);
+
+            Debug.Log($"Distance to Player: {distanceToPlayer} | Vision Range: {vision_range}");
+            Debug.Log($"Angle to Player: {Vector3.Angle(transform.forward, directionToPlayer)} | Vision Angle: {vision_angle / 2f}");
+
+            // Check if player is within vision angle and range
+            if (Vector3.Angle(transform.forward, directionToPlayer) < vision_angle / 2f && distanceToPlayer <= vision_range)
+            {
+                Debug.Log("Player within angle and range");
+
+                // Raycast to ensure player is not behind an obstacle
+                if (!Physics.Raycast(transform.position, directionToPlayer, distanceToPlayer, obstacle_mask))
+                {
+                    Debug.Log("Player detected (no obstacles)");
+                    GameOver();
+                }
+            }
+        }
+
 
         private void GameOver()
         {

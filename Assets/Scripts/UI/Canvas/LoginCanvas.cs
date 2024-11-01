@@ -112,13 +112,20 @@ namespace Yunash.UI
         {
             SceneManager.LoadScene(0);
         }
-
+        /*
         public void ShowGameOver()
         {
             //gamePanel.SetActive(false);
             gameOverPanel.SetActive(true);
 
+        }*/
+
+        public void ShowGameOver()
+        {
+            gameOverPanel.SetActive(true);
+            Time.timeScale = 0; // Freeze the game
         }
+
 
         private void ShowLevelComplete()
         {

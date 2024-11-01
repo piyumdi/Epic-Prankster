@@ -16,7 +16,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4055284470582076
 Transform:
   m_ObjectHideFlags: 0
@@ -24,8 +24,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1882539123029776}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.6755054, y: 1.36, z: 9.846419}
+  m_LocalRotation: {x: -0, y: -0.9990417, z: -0, w: -0.043770142}
+  m_LocalPosition: {x: 0.29211426, y: 0.040039062, z: -1.2504554}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -50,7 +50,7 @@ MonoBehaviour:
   vision_near_range: 3
   obstacle_mask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 64
   show_two_levels: 1
   cone_material: {fileID: 2100000, guid: 110a4a0af7721044faab94478d5ab05c, type: 2}
   cone_far_material: {fileID: 2100000, guid: a45021f2647208144bce8fe9c98f25db, type: 2}
@@ -60,4 +60,5 @@ MonoBehaviour:
   player: {fileID: 5525928210858425240, guid: bdb2d21ed90ab9d4f8f6dfc63f9f4c15, type: 3}
   player_mask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 8
+  detectInterval: 0.1
