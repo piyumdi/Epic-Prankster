@@ -171,6 +171,17 @@ namespace Yunash.UI
             Debug.Log("end");
             
         }
+
+        //
+        public void ShowGameOverPanel()
+        {
+            if (gameOverPanel != null)
+            {
+                gameOverPanel.SetActive(true);
+                Time.timeScale = 0; // Freeze the game
+            }
+        }
+        //
     }
 
 }
