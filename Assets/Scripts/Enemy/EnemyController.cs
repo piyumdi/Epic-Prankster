@@ -175,6 +175,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using Yunash.Data;
 
 public class EnemyController : MonoBehaviour
 {
@@ -307,6 +308,14 @@ public class EnemyController : MonoBehaviour
         }
         Destroy(gameObject);
         Destroy(deadCount);
+        if (DataManager.Instance != null)
+        {
+            DataManager.Instance.AddCoins(1);
+        }
+        else
+        {
+            Debug.LogWarning("DataManager instance is null. Coins not added.");
+        }
     }
 
 

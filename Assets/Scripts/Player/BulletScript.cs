@@ -72,6 +72,7 @@ public class BulletScript : MonoBehaviour
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Yunash.Data;
 
 public class BulletScript : MonoBehaviour
 {
@@ -133,6 +134,7 @@ public class BulletScript : MonoBehaviour
                 enemyController.TakeDamage(); // Apply damage to the enemy
             }
             Destroy(this.gameObject); // Destroy the bullet after it hits the enemy
+
         }
 
         // If the bullet hits the player and it's fired by the enemy
@@ -140,5 +142,21 @@ public class BulletScript : MonoBehaviour
         {
             Destroy(this.gameObject); // Destroy the bullet upon hitting the player
         }
+
+        else if (other.gameObject.tag == "Coin")
+        {
+            Debug.Log("Coin collected");
+            Destroy(other.gameObject);
+
+            if (DataManager.Instance != null)
+            {
+                DataManager.Instance.AddCoins(15);
+            }
+            else
+            {
+                Debug.LogWarning("DataManager instance is null. Coins not added.");
+            }
+        }
+
     }
 }

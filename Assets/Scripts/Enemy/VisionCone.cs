@@ -186,12 +186,12 @@ public class VisionCone : MonoBehaviour
                 if ((PlayerLayer.value & (1 << hit.collider.gameObject.layer)) > 0)
                 {
                     playerDetected = true;
-                    Debug.Log("Player detected within vision cone!");
+                   // Debug.Log("Player detected within vision cone!");
                     Debug.DrawRay(coneOrigin, transform.TransformDirection(direction) * hit.distance, Color.red);
                 }
                 else
                 {
-                    Debug.Log("Obstacle blocking vision cone.");
+                   // Debug.Log("Obstacle blocking vision cone.");
                     Debug.DrawRay(coneOrigin, transform.TransformDirection(direction) * hit.distance, Color.green);
                 }
             }
