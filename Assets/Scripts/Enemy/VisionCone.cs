@@ -90,7 +90,7 @@ using UnityEngine;
 public class VisionCone : MonoBehaviour
 {
     public Material VisionConeMaterial;
-    public float VisionRange = 10f;  // Maximum distance for detection
+    public float VisionRange = 50f;  // Maximum distance for detection
     public float VisionAngle = 90f;  // Vision angle
     public LayerMask VisionObstructingLayer;  // Obstacles layer
     public LayerMask PlayerLayer; // Player layer mask
