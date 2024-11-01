@@ -3296,7 +3296,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   VisionConeMaterial: {fileID: 2100000, guid: 1654b532c0b07eb4a8f17aa8f67061c7, type: 2}
-  VisionRange: 4
+  VisionRange: 10
   VisionAngle: 90
   VisionObstructingLayer:
     serializedVersion: 2
@@ -4761,6 +4761,10 @@ PrefabInstance:
       value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 2221913839460102949, guid: bdb2d21ed90ab9d4f8f6dfc63f9f4c15, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2221913839460102949, guid: bdb2d21ed90ab9d4f8f6dfc63f9f4c15, type: 3}
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
@@ -4944,6 +4948,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 7131118641155473191, guid: bdb2d21ed90ab9d4f8f6dfc63f9f4c15, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 7298578400504048444, guid: bdb2d21ed90ab9d4f8f6dfc63f9f4c15, type: 3}
       propertyPath: m_Layer
       value: 3
@@ -5015,6 +5023,25 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5525928210858425240, guid: bdb2d21ed90ab9d4f8f6dfc63f9f4c15, type: 3}
   m_PrefabInstance: {fileID: 5998049086980429068}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &3778371618018234943 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7445049599874959155, guid: bdb2d21ed90ab9d4f8f6dfc63f9f4c15, type: 3}
+  m_PrefabInstance: {fileID: 5998049086980429068}
+  m_PrefabAsset: {fileID: 0}
+--- !u!136 &7294316275781998413
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3778371618018234943}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 2.0483665
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.45275417, z: 0}
 --- !u!1001 &6096875227148159324
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5040,7 +5067,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 471988a415b78ae4f9cb02922a3dcaba, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 3.01
+      value: 2.52
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 471988a415b78ae4f9cb02922a3dcaba, type: 3}
       propertyPath: m_LocalRotation.w

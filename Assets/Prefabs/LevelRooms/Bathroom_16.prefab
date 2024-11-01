@@ -1540,7 +1540,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   VisionConeMaterial: {fileID: 2100000, guid: 1654b532c0b07eb4a8f17aa8f67061c7, type: 2}
-  VisionRange: 4
+  VisionRange: 10
   VisionAngle: 90
   VisionObstructingLayer:
     serializedVersion: 2
@@ -3519,6 +3519,10 @@ PrefabInstance:
       value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 2221913839460102949, guid: bdb2d21ed90ab9d4f8f6dfc63f9f4c15, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2221913839460102949, guid: bdb2d21ed90ab9d4f8f6dfc63f9f4c15, type: 3}
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
@@ -3702,6 +3706,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 7131118641155473191, guid: bdb2d21ed90ab9d4f8f6dfc63f9f4c15, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 7298578400504048444, guid: bdb2d21ed90ab9d4f8f6dfc63f9f4c15, type: 3}
       propertyPath: m_Layer
       value: 3
@@ -3773,3 +3781,22 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5525928210858425240, guid: bdb2d21ed90ab9d4f8f6dfc63f9f4c15, type: 3}
   m_PrefabInstance: {fileID: 6280837781421329023}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &3492582764368006476 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7445049599874959155, guid: bdb2d21ed90ab9d4f8f6dfc63f9f4c15, type: 3}
+  m_PrefabInstance: {fileID: 6280837781421329023}
+  m_PrefabAsset: {fileID: 0}
+--- !u!136 &2513521824863191227
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3492582764368006476}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 2.1611373
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.50913966, z: 0}

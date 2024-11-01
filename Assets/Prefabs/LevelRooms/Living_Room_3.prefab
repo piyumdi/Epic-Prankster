@@ -378,8 +378,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   VisionConeMaterial: {fileID: 2100000, guid: 1654b532c0b07eb4a8f17aa8f67061c7, type: 2}
-  VisionRange: 490
-  VisionAngle: 0
+  VisionRange: 10
+  VisionAngle: 90
   VisionObstructingLayer:
     serializedVersion: 2
     m_Bits: 64
@@ -2139,7 +2139,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e31e533327d87f34fae5c0709eb7d494, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 3.25
+      value: 2.68
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e31e533327d87f34fae5c0709eb7d494, type: 3}
       propertyPath: m_LocalRotation.w
@@ -2645,6 +2645,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 2221913839460102949, guid: bdb2d21ed90ab9d4f8f6dfc63f9f4c15, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 2639641814918018412, guid: bdb2d21ed90ab9d4f8f6dfc63f9f4c15, type: 3}
       propertyPath: m_Layer
       value: 3
@@ -2825,6 +2829,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 7131118641155473191, guid: bdb2d21ed90ab9d4f8f6dfc63f9f4c15, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 7298578400504048444, guid: bdb2d21ed90ab9d4f8f6dfc63f9f4c15, type: 3}
       propertyPath: m_Layer
       value: 3
@@ -2896,6 +2904,25 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5525928210858425240, guid: bdb2d21ed90ab9d4f8f6dfc63f9f4c15, type: 3}
   m_PrefabInstance: {fileID: 5653180843528363406}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &2965060892757793469 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7445049599874959155, guid: bdb2d21ed90ab9d4f8f6dfc63f9f4c15, type: 3}
+  m_PrefabInstance: {fileID: 5653180843528363406}
+  m_PrefabAsset: {fileID: 0}
+--- !u!136 &2291343715385339339
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2965060892757793469}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 2.0323331
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.44473785, z: 0}
 --- !u!1001 &7599095930701627686
 PrefabInstance:
   m_ObjectHideFlags: 0
