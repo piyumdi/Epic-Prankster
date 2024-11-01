@@ -59,7 +59,7 @@ namespace Yunash.Game
             this.gameState = gamestate;
             onGameStateChanged?.Invoke(gamestate);
 
-            Debug.Log("Game State");
+            
 
 
 
