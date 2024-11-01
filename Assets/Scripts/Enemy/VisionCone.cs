@@ -83,7 +83,6 @@ public class VisionCone : MonoBehaviour
 }
 */
 
-
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -91,15 +90,14 @@ using UnityEngine;
 public class VisionCone : MonoBehaviour
 {
     public Material VisionConeMaterial;
-    public float VisionRange = 10f;
-    public float VisionAngle = 90f;
-    public LayerMask VisionObstructingLayer;
-    public LayerMask PlayerLayer;
-    public int VisionConeResolution = 120;
+    public float VisionRange = 10f;  // Maximum distance for detection
+    public float VisionAngle = 90f;  // Vision angle
+    public LayerMask VisionObstructingLayer;  // Obstacles layer
+    public LayerMask PlayerLayer; // Player layer mask
+    public int VisionConeResolution = 120;  // Resolution of the vision cone mesh
 
     private Mesh VisionConeMesh;
     private MeshFilter MeshFilter_;
-    private bool playerDetected = false;
 
     void Start()
     {
@@ -108,8 +106,6 @@ public class VisionCone : MonoBehaviour
 
         MeshFilter_ = gameObject.AddComponent<MeshFilter>();
         VisionConeMesh = new Mesh();
-
-        Debug.Log("PlayerLayer mask value set to: " + PlayerLayer.value);
     }
 
     void Update()
@@ -121,14 +117,12 @@ public class VisionCone : MonoBehaviour
     {
         int[] triangles = new int[(VisionConeResolution - 1) * 3];
         Vector3[] vertices = new Vector3[VisionConeResolution + 1];
-        vertices[0] = Vector3.zero;
+        vertices[0] = Vector3.zero; // Center of the cone
 
         float currentAngle = -VisionAngle / 2;
         float angleIncrement = VisionAngle / (VisionConeResolution - 1);
 
-        Vector3 coneOrigin = transform.position + Vector3.up * 0.5f;
-
-        playerDetected = false; // Reset player detection each frame
+        Vector3 coneOrigin = transform.position + Vector3.up * 0.5f; // Origin for rays, slightly above ground
 
         for (int i = 0; i < VisionConeResolution; i++)
         {
@@ -136,36 +130,35 @@ public class VisionCone : MonoBehaviour
             Vector3 direction = new Vector3(Mathf.Sin(rad), 0, Mathf.Cos(rad));
             Vector3 vertexPosition;
 
+            // Cast ray to detect objects
             RaycastHit hit;
             if (Physics.Raycast(coneOrigin, transform.TransformDirection(direction), out hit, VisionRange, VisionObstructingLayer | PlayerLayer))
             {
-                vertexPosition = transform.InverseTransformPoint(hit.point);
+                vertexPosition = transform.InverseTransformPoint(hit.point); // Place vertex at hit point
 
                 // Check if the hit object is the player
                 if ((PlayerLayer.value & (1 << hit.collider.gameObject.layer)) > 0)
                 {
                     Debug.Log("Player detected within vision cone!");
-                    playerDetected = true;
+                    Debug.DrawRay(coneOrigin, transform.TransformDirection(direction) * hit.distance, Color.green);
                 }
                 else
                 {
                     Debug.Log("Obstacle blocking vision cone.");
+                    Debug.DrawRay(coneOrigin, transform.TransformDirection(direction) * hit.distance, Color.red);
                 }
             }
             else
             {
-                vertexPosition = direction * VisionRange;
+                vertexPosition = direction * VisionRange; // Max range if no obstacle
+                Debug.DrawRay(coneOrigin, transform.TransformDirection(direction) * VisionRange, Color.yellow); // Visualize open line of sight
             }
 
             vertices[i + 1] = vertexPosition;
             currentAngle += angleIncrement;
         }
 
-        if (!playerDetected)
-        {
-            Debug.Log("Player is not detected within vision cone.");
-        }
-
+        // Create triangles for the cone mesh
         for (int i = 0, j = 0; i < triangles.Length; i += 3, j++)
         {
             triangles[i] = 0;
@@ -178,6 +171,8 @@ public class VisionCone : MonoBehaviour
         VisionConeMesh.triangles = triangles;
         MeshFilter_.mesh = VisionConeMesh;
 
+        // Slightly raise the cone position
         transform.localPosition = new Vector3(0, 0.5f, 0);
     }
 }
+
