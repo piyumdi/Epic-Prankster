@@ -110,8 +110,10 @@ namespace Yunash.UI
 
         public void RetryButtonPressed()
         {
-            SceneManager.LoadScene(0);
+            Time.timeScale = 1; // Resume normal game speed
+            SceneManager.LoadScene(0); // Reload the scene
         }
+
         /*
         public void ShowGameOver()
         {
@@ -178,7 +180,7 @@ namespace Yunash.UI
             if (gameOverPanel != null)
             {
                 gameOverPanel.SetActive(true);
-                Time.timeScale = 0; // Freeze the game
+                //Time.timeScale = 0; // Freeze the game
             }
         }
         //

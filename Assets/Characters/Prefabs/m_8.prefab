@@ -520,6 +520,7 @@ MonoBehaviour:
   isEnemy: 1
   player: {fileID: 2094428669263174508}
   gameOverManager: {fileID: 0}
+  particle: {fileID: 0}
 --- !u!54 &8448906004746958516
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -546,7 +547,7 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  m_Radius: 0.5
+  m_Radius: 0.18
   m_Height: 1.4825134
   m_Direction: 1
   m_Center: {x: 0, y: 0.7174766, z: 0}
@@ -1454,15 +1455,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   VisionConeMaterial: {fileID: 2100000, guid: 1654b532c0b07eb4a8f17aa8f67061c7, type: 2}
-  VisionRange: 10
-  VisionAngle: 90
+  VisionRange: 25.69
+  VisionAngle: 65.84
   VisionObstructingLayer:
     serializedVersion: 2
     m_Bits: 64
   PlayerLayer:
     serializedVersion: 2
     m_Bits: 8
-  VisionConeResolution: 120
+  VisionConeResolution: 380
 --- !u!1 &5631777665824835156
 GameObject:
   m_ObjectHideFlags: 0

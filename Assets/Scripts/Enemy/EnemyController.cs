@@ -196,24 +196,29 @@ public class EnemyController : MonoBehaviour
 
     private bool isScanning = false; // To track if the enemy is scanning
     private bool isPlayerInVision = false; // Track if the player is within the reduced vision cone
+    
+    
+    public ParticleSystem deathParticlePrefab;
+
+
+
+
 
     void Start()
     {
+        
+
         targetRotation = transform.rotation;
         lastHitTime = -turnBackDelay;
 
         UpdateLivesText();
 
-        // Disable the vision cone at the start
         
     }
 
     void Update()
     {
-        // If the enemy is facing the player and 3 seconds have passed since the last hit, start scanning the room
         
-
-        // Rotate the enemy when needed
         if (hit)
         {
             RotateEnemy();
@@ -287,6 +292,16 @@ public class EnemyController : MonoBehaviour
         if (lives <= 0)
         {
             Die();
+            if (deathParticlePrefab != null)
+            {
+                Instantiate(deathParticlePrefab, transform.position, transform.rotation);
+                deathParticlePrefab.Play();
+
+            }
+
+            
+            
+
         }
     }
 
@@ -301,16 +316,18 @@ public class EnemyController : MonoBehaviour
     void Die()
     {
         Debug.Log("Enemy died!");
-        // Disable the vision cone when the enemy dies
+        
         if (visionCone != null)
         {
             visionCone.SetActive(false); // Disable vision cone on death
         }
         Destroy(gameObject);
         Destroy(deadCount);
+
+
         if (DataManager.Instance != null)
         {
-            DataManager.Instance.AddCoins(1);
+            DataManager.Instance.AddCoins(15);
         }
         else
         {

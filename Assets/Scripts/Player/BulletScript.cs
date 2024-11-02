@@ -150,7 +150,7 @@ public class BulletScript : MonoBehaviour
 
             if (DataManager.Instance != null)
             {
-                DataManager.Instance.AddCoins(15);
+                DataManager.Instance.AddCoins(1);
             }
             else
             {

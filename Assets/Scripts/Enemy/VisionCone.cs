@@ -149,7 +149,7 @@ public class VisionCone : MonoBehaviour
         if (loginCanvas != null)
         {
             loginCanvas.ShowGameOverPanel(); // Display the game-over panel
-            Time.timeScale = 0; // Freeze the game
+            //Time.timeScale = 0; // Freeze the game
         }
         else
         {
