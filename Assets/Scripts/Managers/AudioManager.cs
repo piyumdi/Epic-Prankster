@@ -99,6 +99,9 @@ namespace Yunash.Audio
         [SerializeField] private AudioSource musicAudioSource;    // For background music
         private AudioData audioData;
 
+        // Track the currently playing music type
+        private AudioType currentMusicType;
+
         private void Start()
         {
             // Get the audio data from GameManager's DataService
@@ -124,17 +127,23 @@ namespace Yunash.Audio
             if (clip == null)
                 return; // Exit if no clip is found
 
-            // Check the audio type and play the corresponding audio
-            if (audioType == AudioType.ButtonClick)
+            // Check if the audio type is background music
+            if (audioType == AudioType.IdleBackgroundMusic || audioType == AudioType.InGameBackgroundMusic || audioType == AudioType.LevelComplete)
+            {
+                // Stop the current music if it's not the same as the new one
+                if (currentMusicType != audioType)
+                {
+                    musicAudioSource.Stop(); // Stop currently playing music
+                    currentMusicType = audioType; // Update the current music type
+                    musicAudioSource.clip = clip;   // Set the music clip
+                    musicAudioSource.loop = true;   // Loop the background music
+                    musicAudioSource.Play();         // Play the music
+                }
+            }
+            else if (audioType == AudioType.ButtonClick)
             {
                 soundsAudioSource.clip = clip; // Set the sound clip
                 soundsAudioSource.Play();       // Play the sound
-            }
-            else if (audioType == AudioType.IdleBackgroundMusic || audioType == AudioType.InGameBackgroundMusic)
-            {
-                musicAudioSource.clip = clip;   // Set the music clip
-                musicAudioSource.loop = true;   // Loop the background music
-                musicAudioSource.Play();         // Play the music
             }
         }
 
@@ -145,7 +154,7 @@ namespace Yunash.Audio
             {
                 soundsAudioSource.Stop(); // Stop all sound effects
             }
-            else if (audioType == AudioType.IdleBackgroundMusic || audioType == AudioType.InGameBackgroundMusic)
+            else if (audioType == AudioType.IdleBackgroundMusic || audioType == AudioType.InGameBackgroundMusic || audioType == AudioType.LevelComplete)
             {
                 musicAudioSource.Stop(); // Stop background music
             }
@@ -156,6 +165,7 @@ namespace Yunash.Audio
     {
         IdleBackgroundMusic,
         InGameBackgroundMusic,
+        LevelComplete,
         EnterGame,
         PanelOpen,
         PanelClose,
@@ -165,8 +175,8 @@ namespace Yunash.Audio
         Error,
         Success,
         MiscAction,
-        LevelComplete,
         ProgressBarFill,
         ProgressBarComplete
     }
 }
+
