@@ -1,82 +1,3 @@
-/*
-using Yunash.Game;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-namespace Yunash.Audio
-{
-    public interface IAudioService
-    {
-        void PlayAudio(AudioType audioType);
-        void StopAudio(AudioType audioType);
-        void MuteSounds(bool isMute);
-        void MuteMusic(bool isMute);
-    }
-
-    public class AudioManager : MonoBehaviour, IAudioService
-    {
-        [SerializeField] AudioSource soundsAudioSource;
-        [SerializeField] AudioSource musicAudioSource;
-        private AudioData audioData;
-
-        private void Start()
-        {
-            audioData = GameManager.Instance.DataService.AudioData;
-        }
-        public void MuteMusic(bool isMute)
-        {
-            musicAudioSource.mute = isMute;
-        }
-
-        public void MuteSounds(bool isMute)
-        {
-            soundsAudioSource.mute = isMute;
-        }
-
-        public void PlayAudio(AudioType audioType)
-        {
-            audioData.TryGetClip(audioType, out AudioClip clip);
-
-            if (clip == null)
-                return;
-
-            if (audioType == AudioType.ButtonClick)
-            {
-                soundsAudioSource.clip = clip;
-                soundsAudioSource.Play();
-            }
-            else if (audioType == AudioType.IdleBackgroundMusic)
-            {
-                musicAudioSource.clip = clip;
-                musicAudioSource.Play();
-            }
-        }
-
-        public void StopAudio(AudioType audioType)
-        {
-        }
-    }
-
-    public enum AudioType
-    {
-        IdleBackgroundMusic,
-        InGameBackgroundMusic,
-        EnterGame,
-        PanelOpen,
-        PanelClose,
-        ButtonClick,
-        RewardPopup,
-        LetterSelect,
-        Error,
-        Success,
-        MiscAction,
-        LevelComplete,
-        ProgressBarFill,
-        ProgressBarComplete
-    }
-}
-*/
 
 using Yunash.Game;
 using System.Collections;
@@ -99,8 +20,8 @@ namespace Yunash.Audio
         [SerializeField] private AudioSource musicAudioSource;    // For background music
         private AudioData audioData;
 
-        // Track the currently playing music type
-        private AudioType currentMusicType;
+        // Track the currently playing music type; initialize to an unused value
+        private AudioType currentMusicType = AudioType.MiscAction; // Assume MiscAction won't be used for background music
 
         private void Start()
         {
@@ -130,7 +51,7 @@ namespace Yunash.Audio
             // Check if the audio type is background music
             if (audioType == AudioType.IdleBackgroundMusic || audioType == AudioType.InGameBackgroundMusic || audioType == AudioType.LevelComplete)
             {
-                // Stop the current music if it's not the same as the new one
+                // Play only if the current music type is different
                 if (currentMusicType != audioType)
                 {
                     musicAudioSource.Stop(); // Stop currently playing music
@@ -174,7 +95,7 @@ namespace Yunash.Audio
         LetterSelect,
         Error,
         Success,
-        MiscAction,
+        MiscAction, // This is used to initialize currentMusicType
         ProgressBarFill,
         ProgressBarComplete
     }
