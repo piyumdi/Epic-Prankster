@@ -313,8 +313,28 @@ namespace Yunash.UI
         public void RetryButtonPressed()
         {
             Time.timeScale = 1; // Resume normal game speed
-            SceneManager.LoadScene(0); // Reload the scene
+            //SceneManager.LoadScene(0); // Reload the scene
+            //
+            ResetGameState();
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex); // Reload the current scene
+            //
         }
+
+        //
+        private void ResetGameState()
+        {
+            // Reset relevant UI panels
+            gamePanel.SetActive(false);
+            gameOverPanel.SetActive(false);
+            levelCompletePanel.SetActive(false);
+            SettingsPanel.SetActive(false);
+            PausePanel.SetActive(false);
+            ShopPanel.SetActive(false);
+
+            // Reset any other states in GameManager if necessary
+            // You might also need to reset persistent data here, e.g., player score, level progress
+        }
+        //
 
         // Settings and Shop panel handling methods
         public void ShowSettingsPanel()
