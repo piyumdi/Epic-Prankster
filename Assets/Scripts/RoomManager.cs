@@ -43,6 +43,7 @@ public class RoomManager : MonoBehaviour
 }
 */
 
+
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -108,6 +109,7 @@ public class RoomManager : MonoBehaviour
         
         currentRoom.transform.SetParent(roomPosition, false);
     }
+
 
     private void ChangeRoom()
     {
