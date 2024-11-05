@@ -483,13 +483,17 @@ namespace Yunash.UI
 
         public void HideLevelComplete()
         {
-            // Hide the level complete panel
-            levelCompletePanel.SetActive(false);
+            StartCoroutine(HideLevelCompleteCoroutine());
+        }
 
-            // Optionally play a sound when moving to the next level
+        private IEnumerator HideLevelCompleteCoroutine()
+        {
+            
             audioManager?.PlayAudio(Yunash.Audio.AudioType.IdleBackgroundMusic);
 
-            // Load the next level
+            yield return new WaitForSeconds(0.5f); 
+
+            levelCompletePanel.SetActive(false);
             LoadNextLevel();
         }
 
@@ -507,7 +511,8 @@ namespace Yunash.UI
             else
             {
                 Debug.LogWarning("No more levels in build settings. Returning to main menu.");
-                SceneManager.LoadScene(0); // Return to main menu or first scene if there are no more levels
+                //SceneManager.LoadScene(0); // Return to main menu or first scene if there are no more levels
+                levelCompletePanel.SetActive(false);
             }
         }
 
