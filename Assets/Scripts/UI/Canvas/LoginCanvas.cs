@@ -203,6 +203,10 @@ namespace Yunash.UI
 {
     public class LoginCanvas : CanvasBase
     {
+        //
+        public static LoginCanvas Instance { get; private set; }
+        //
+
         [Header("Elements")]
         [SerializeField] private GameObject menuPanel;
         [SerializeField] private GameObject gamePanel;
@@ -215,6 +219,22 @@ namespace Yunash.UI
         [SerializeField] private TMP_Text levelText;
 
         private AudioManager audioManager; // Declare an AudioManager variable
+
+        //
+        private void Awake()
+        {
+            if (Instance == null)
+            {
+                Instance = this;
+                DontDestroyOnLoad(gameObject);
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
+        }
+        //
+
 
         void Start()
         {
@@ -246,6 +266,12 @@ namespace Yunash.UI
         private void OnDestroy()
         {
             GameManager.onGameStateChanged -= GameStateChangedCallBack;
+            //
+            if (Instance == this)
+            {
+                Instance = null;
+            }
+            //
         }
 
         private void GameStateChangedCallBack(GameManager.GameState gameState)

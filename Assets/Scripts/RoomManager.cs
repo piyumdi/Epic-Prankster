@@ -48,6 +48,9 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI; // Make sure to include this for UI handling
+//
+using Yunash.UI;  // Add this line
+//
 
 public class RoomManager : MonoBehaviour
 {
@@ -112,7 +115,12 @@ public class RoomManager : MonoBehaviour
         totalLevelCount++; 
 
         SpawnRoom(roomIndex); // Spawn the next room
-        SaveProgress(roomIndex, totalLevelCount); 
+        SaveProgress(roomIndex, totalLevelCount);
+
+        //
+        // Hide the level complete panel after switching to the new room
+        LoginCanvas.Instance.HideLevelComplete();
+        //
     }
 
     private void SaveProgress(int currentRoomIndex, int totalLevels)

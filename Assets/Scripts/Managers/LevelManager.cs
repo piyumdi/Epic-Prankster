@@ -1,5 +1,8 @@
 using UnityEngine;
 using UnityEngine.UI;
+//
+using Yunash.UI;  // Add this line
+//
 
 public class LevelManager : MonoBehaviour
 {
@@ -60,6 +63,9 @@ public class LevelManager : MonoBehaviour
 
     public void LoadNextLevel()
     {
+        //
+        LoginCanvas.Instance.HideLevelComplete();
+        //
         InitializeLevel();
     }
 }
