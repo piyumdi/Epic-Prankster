@@ -3630,28 +3630,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 2276522308565308968, guid: d20dd07bdc2800d4185162695b233b3e, type: 3}
   m_PrefabInstance: {fileID: 744084471753030972}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &7363655828976599691
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1568466634659638036}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9bdf610a80da39644804d21ff8b40535, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rotationSpeed: 180
-  turnBackDelay: 3
-  deadCount: {fileID: 8185079030185308776}
-  visionCone: {fileID: 2794709143750251884}
-  lives: 10
-  livesText: {fileID: 1551247084871743331}
-  isEnemy: 1
-  player: {fileID: 1568466634659638036}
-  gameOverManager: {fileID: 0}
-  deathParticlePrefab: {fileID: 6064058598955392300, guid: 31e69060f1f0b524baebff3855cc887f, type: 3}
 --- !u!54 &5699579342091464984
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -3682,6 +3660,28 @@ CapsuleCollider:
   m_Height: 1.9252542
   m_Direction: 1
   m_Center: {x: 0, y: 0.462627, z: 0}
+--- !u!114 &7363655828976599691
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1568466634659638036}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9bdf610a80da39644804d21ff8b40535, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotationSpeed: 180
+  turnBackDelay: 3
+  deadCount: {fileID: 8185079030185308776}
+  visionCone: {fileID: 2794709143750251884}
+  lives: 10
+  livesText: {fileID: 1551247084871743331}
+  isEnemy: 1
+  player: {fileID: 1568466634659638036}
+  gameOverManager: {fileID: 0}
+  deathParticlePrefab: {fileID: 6064058598955392300, guid: 31e69060f1f0b524baebff3855cc887f, type: 3}
 --- !u!4 &2202120255575224750 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1503081147343162514, guid: d20dd07bdc2800d4185162695b233b3e, type: 3}
@@ -3936,6 +3936,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6435111737242390799}
     m_Modifications:
+    - target: {fileID: 1494142178579521981, guid: 91f663a5e2eb44b40976da9e9c4641b9, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1977346987355806584, guid: 91f663a5e2eb44b40976da9e9c4641b9, type: 3}
       propertyPath: m_RootOrder
       value: 6
@@ -3983,6 +3987,10 @@ PrefabInstance:
     - target: {fileID: 5266161693637317573, guid: 91f663a5e2eb44b40976da9e9c4641b9, type: 3}
       propertyPath: m_Name
       value: EnemyParent
+      objectReference: {fileID: 0}
+    - target: {fileID: 5266161693637317573, guid: 91f663a5e2eb44b40976da9e9c4641b9, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6494348265627056729, guid: 91f663a5e2eb44b40976da9e9c4641b9, type: 3}
       propertyPath: deadCount
