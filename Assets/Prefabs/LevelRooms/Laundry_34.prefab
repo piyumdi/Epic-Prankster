@@ -3415,6 +3415,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 2276522308565308968, guid: d20dd07bdc2800d4185162695b233b3e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2296068938444152830, guid: d20dd07bdc2800d4185162695b233b3e, type: 3}
       propertyPath: m_Layer
       value: 7
@@ -3938,7 +3942,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1494142178579521981, guid: 91f663a5e2eb44b40976da9e9c4641b9, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1977346987355806584, guid: 91f663a5e2eb44b40976da9e9c4641b9, type: 3}
       propertyPath: m_RootOrder
@@ -4010,6 +4014,11 @@ GameObject:
 --- !u!4 &8672895852306387632 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1977346987355806584, guid: 91f663a5e2eb44b40976da9e9c4641b9, type: 3}
+  m_PrefabInstance: {fileID: 7146265140623985096}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &8996838014789300943 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2303471129573554951, guid: 91f663a5e2eb44b40976da9e9c4641b9, type: 3}
   m_PrefabInstance: {fileID: 7146265140623985096}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7227080227335942860
@@ -4122,7 +4131,7 @@ PrefabInstance:
     - target: {fileID: 2867507650346434116, guid: bdb2d21ed90ab9d4f8f6dfc63f9f4c15, type: 3}
       propertyPath: enemyList.Array.data[0]
       value: 
-      objectReference: {fileID: 2202120255575224750}
+      objectReference: {fileID: 8996838014789300943}
     - target: {fileID: 2946576715143255234, guid: bdb2d21ed90ab9d4f8f6dfc63f9f4c15, type: 3}
       propertyPath: m_Layer
       value: 3
