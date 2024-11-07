@@ -69,10 +69,12 @@ public class BulletScript : MonoBehaviour
 }
 */
 
+/* before bullet sound
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Yunash.Data;
+using Yunash.Audio;
 
 public class BulletScript : MonoBehaviour
 {
@@ -83,8 +85,20 @@ public class BulletScript : MonoBehaviour
     private Vector3 moveDirection;
     private float initialY;
 
+    private AudioManager audioManager;
+
     void Start()
     {
+        audioManager = FindObjectOfType<AudioManager>();
+        if (audioManager != null)
+        {
+            audioManager.PlayAudio(AudioType.Shoot); // Play the shooting sound
+        }
+        else
+        {
+            Debug.LogWarning("AudioManager not found in the scene.");
+        }
+
         initialY = transform.position.y;
 
         // If the bullet is fired by the player, find the closest enemy
@@ -158,5 +172,105 @@ public class BulletScript : MonoBehaviour
             }
         }
 
+    }
+}
+*/
+
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using Yunash.Data;
+using Yunash.Audio;
+
+
+public class BulletScript : MonoBehaviour
+{
+    public float moveSpeed = 10f;
+    public bool isEnemy; // Indicates whether this bullet is shot by an enemy
+    private Transform target;
+    private PlayerController getClosestEnemy;
+    private Vector3 moveDirection;
+    private float initialY;
+
+    private AudioSource audioSource;
+
+    void Start()
+    {
+        initialY = transform.position.y;
+
+        // Get the AudioSource component attached to this bullet
+        audioSource = GetComponent<AudioSource>();
+
+        // Play the shooting sound immediately
+        if (audioSource != null)
+        {
+            audioSource.Play();
+        }
+        else
+        {
+            Debug.LogWarning("AudioSource not found on the bullet prefab.");
+        }
+
+        // If the bullet is fired by the player, find the closest enemy
+        if (!isEnemy)
+        {
+            getClosestEnemy = FindObjectOfType<PlayerController>();
+            getClosestEnemy.ClosestVariable();
+            target = getClosestEnemy.closestEnemy;
+        }
+        else
+        {
+            target = GameObject.FindWithTag("Player").transform;
+        }
+
+        if (target != null)
+        {
+            moveDirection = (target.position - transform.position).normalized;
+            moveDirection.y = 0;
+        }
+
+        Destroy(gameObject, 2f);
+    }
+
+    void Update()
+    {
+        if (target != null)
+        {
+            transform.position = Vector3.MoveTowards(transform.position,
+                                                    new Vector3(target.position.x, initialY, target.position.z),
+                                                    moveSpeed * Time.deltaTime);
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Enemy") && !isEnemy)
+        {
+            EnemyController enemyController = other.gameObject.GetComponent<EnemyController>();
+            if (enemyController != null)
+            {
+                enemyController.OnHit();
+                enemyController.TakeDamage();
+            }
+            Destroy(gameObject);
+        }
+        else if (other.gameObject.CompareTag("Player") && isEnemy)
+        {
+            Destroy(gameObject);
+        }
+        else if (other.gameObject.CompareTag("Coin"))
+        {
+            Debug.Log("Coin collected");
+            Destroy(other.gameObject);
+
+            if (DataManager.Instance != null)
+            {
+                DataManager.Instance.AddCoins(1);
+            }
+            else
+            {
+                Debug.LogWarning("DataManager instance is null. Coins not added.");
+            }
+        }
     }
 }

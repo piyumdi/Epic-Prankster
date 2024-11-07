@@ -97,7 +97,8 @@ namespace Yunash.Audio
         Success,
         MiscAction, // This is used to initialize currentMusicType
         ProgressBarFill,
-        ProgressBarComplete
+        ProgressBarComplete,
+        Shoot
     }
 }
 
