@@ -216,6 +216,7 @@ namespace Yunash.UI
         [SerializeField] private GameObject gameOverPanel;
         [SerializeField] private AudioSource gameOverAudioSource;
         [SerializeField] private GameObject levelCompletePanel;
+        [SerializeField] private AudioSource levelCompleteAudioSource;
         [SerializeField] private GameObject SettingsPanel;
         [SerializeField] private GameObject PausePanel;
         [SerializeField] private GameObject ShopPanel;
@@ -319,7 +320,7 @@ namespace Yunash.UI
             ranksPanel.SetActive(false);
         }
 
-
+        /*
         private void ShowLevelComplete()
         {
             levelCompletePanel.SetActive(true);
@@ -360,6 +361,56 @@ namespace Yunash.UI
                 levelCompletePanel.SetActive(false);
             }
         }
+        */
+
+        private void ShowLevelComplete()
+        {
+            levelCompletePanel.SetActive(true);
+
+            audioManager?.StopAudio(Yunash.Audio.AudioType.IdleBackgroundMusic);
+
+
+            // Play level complete music when the panel is visible
+            if (levelCompleteAudioSource != null && !levelCompleteAudioSource.isPlaying)
+            {
+                levelCompleteAudioSource.Play();
+            }
+
+            // Optionally, stop the idle background music if needed
+            audioManager?.PlayAudio(Yunash.Audio.AudioType.LevelComplete);
+        }
+
+        public void HideLevelComplete()
+        {
+            StartCoroutine(HideLevelCompleteCoroutine());
+        }
+
+        private IEnumerator HideLevelCompleteCoroutine()
+        {
+            // Optionally, resume idle background music after the level complete panel is hidden
+            audioManager?.PlayAudio(Yunash.Audio.AudioType.IdleBackgroundMusic);
+
+            yield return new WaitForSeconds(0.5f); // Adjust timing as necessary
+
+            levelCompletePanel.SetActive(false);
+            LoadNextLevel();
+        }
+
+        private void LoadNextLevel()
+        {
+            int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+            int nextSceneIndex = currentSceneIndex + 1;
+
+            if (nextSceneIndex < SceneManager.sceneCountInBuildSettings)
+            {
+                SceneManager.LoadScene(nextSceneIndex);
+            }
+            else
+            {
+                Debug.LogWarning("No more levels in build settings. Returning to main menu.");
+                levelCompletePanel.SetActive(false);
+            }
+        }
 
         /*
         public void ShowGameOver()
@@ -379,6 +430,9 @@ namespace Yunash.UI
         {
             gameOverPanel.SetActive(true);
             Time.timeScale = 0; // Freeze the game
+
+            audioManager?.StopAudio(Yunash.Audio.AudioType.IdleBackgroundMusic);
+
 
             // Play game-over music when the gameOverPanel is visible
             if (gameOverAudioSource != null && !gameOverAudioSource.isPlaying)
