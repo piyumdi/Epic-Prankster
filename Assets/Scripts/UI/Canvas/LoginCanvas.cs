@@ -214,6 +214,7 @@ namespace Yunash.UI
         [SerializeField] private GameObject menuPanel;
         [SerializeField] private GameObject gamePanel;
         [SerializeField] private GameObject gameOverPanel;
+        [SerializeField] private AudioSource gameOverAudioSource;
         [SerializeField] private GameObject levelCompletePanel;
         [SerializeField] private GameObject SettingsPanel;
         [SerializeField] private GameObject PausePanel;
@@ -360,6 +361,7 @@ namespace Yunash.UI
             }
         }
 
+        /*
         public void ShowGameOver()
         {
             gameOverPanel.SetActive(true);
@@ -372,6 +374,46 @@ namespace Yunash.UI
             ResetGameState();
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex); // Reload the current scene
         }
+        */
+        public void ShowGameOver()
+        {
+            gameOverPanel.SetActive(true);
+            Time.timeScale = 0; // Freeze the game
+
+            // Play game-over music when the gameOverPanel is visible
+            if (gameOverAudioSource != null && !gameOverAudioSource.isPlaying)
+            {
+                gameOverAudioSource.Play();
+            }
+        }
+
+        public void HideGameOver()
+        {
+            gameOverPanel.SetActive(false);
+
+            // Stop game-over music when the gameOverPanel is hidden
+            if (gameOverAudioSource != null && gameOverAudioSource.isPlaying)
+            {
+                gameOverAudioSource.Stop();
+            }
+        }
+
+        public void RetryButtonPressed()
+        {
+            Time.timeScale = 1; // Resume normal game speed
+            ResetGameState();
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex); // Reload the current scene
+
+            // Stop the game over music and resume idle background music (or whatever your normal music is)
+            if (gameOverAudioSource != null && gameOverAudioSource.isPlaying)
+            {
+                gameOverAudioSource.Stop();
+            }
+
+            // Optionally, restart the normal background music here if needed
+            // audioManager?.PlayAudio(Yunash.Audio.AudioType.IdleBackgroundMusic); 
+        }
+
 
         private void ResetGameState()
         {
