@@ -171,6 +171,7 @@ public class EnemyController : MonoBehaviour
 }
 */
 
+/* before add progress bar
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -188,7 +189,7 @@ public class EnemyController : MonoBehaviour
     public GameObject deadCount;
 
     public GameObject visionCone; // Reference to the VisionCone script
-    public int lives = 5;
+    public int lives = 10;
     public TMP_Text livesText;
     public bool isEnemy = true;
     public GameObject player; // Reference to the player object
@@ -351,6 +352,183 @@ public class EnemyController : MonoBehaviour
         if (gameOverManager != null)
         {
             gameOverManager.GameOver(); // Trigger the GameOver in the GameOverManager
+        }
+    }
+}
+*/
+
+using System.Collections;
+using System.Collections.Generic;
+using TMPro;
+using UnityEngine;
+using UnityEngine.UI;  // Add this for accessing the Slider component
+using Yunash.Data;
+
+public class EnemyController : MonoBehaviour
+{
+    public float rotationSpeed = 180f; // Degrees per second
+    public float turnBackDelay = 3f;   // Time to turn back after no hits
+    private bool hit = false;          // Bool to check if the enemy was hit
+    private float lastHitTime;         // Time of the last hit
+    private Quaternion targetRotation; // Target rotation
+    private bool facingPlayer = false; // Is the enemy currently facing the player?
+    public GameObject deadCount;
+
+    public GameObject visionCone; // Reference to the VisionCone script
+    public int lives = 10;
+    public TMP_Text livesText;
+    public bool isEnemy = true;
+    public GameObject player; // Reference to the player object
+    public GameOverManager gameOverManager; // Reference to the GameOverManager script
+
+    public Slider healthProgressBar; // Reference to the progress bar UI slider
+    public ParticleSystem deathParticlePrefab;
+
+    private bool isScanning = false; // To track if the enemy is scanning
+    private bool isPlayerInVision = false; // Track if the player is within the reduced vision cone
+
+    void Start()
+    {
+        targetRotation = transform.rotation;
+        lastHitTime = -turnBackDelay;
+
+        UpdateLivesText();
+        InitializeHealthProgressBar();
+    }
+
+    void Update()
+    {
+        if (hit)
+        {
+            RotateEnemy();
+        }
+
+        // Detect player in vision cone during scanning
+        if (facingPlayer && visionCone != null && isScanning)
+        {
+            DetectPlayerInVisionCone();
+        }
+    }
+
+    private void InitializeHealthProgressBar()
+    {
+        if (healthProgressBar != null)
+        {
+            healthProgressBar.maxValue = lives;   // Set max value to total lives
+            healthProgressBar.value = lives;      // Initialize to full health
+        }
+    }
+
+    public void OnHit()
+    {
+        if (!facingPlayer)
+        {
+            targetRotation = Quaternion.Euler(0, transform.eulerAngles.y + 180f, 0); // Rotate by 180 degrees
+            hit = true;
+            facingPlayer = true;
+
+            if (visionCone != null)
+            {
+                visionCone.SetActive(true);
+            }
+        }
+        lastHitTime = Time.time;
+    }
+
+    private void RotateEnemy()
+    {
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+
+        if (Quaternion.Angle(transform.rotation, targetRotation) < 1f)
+        {
+            hit = false;
+        }
+
+        if (visionCone != null)
+        {
+            visionCone.transform.position = new Vector3(transform.position.x, transform.position.y + 1f, transform.position.z);
+            visionCone.transform.rotation = transform.rotation;
+        }
+    }
+
+    private void TurnBack()
+    {
+        targetRotation = Quaternion.Euler(0, transform.eulerAngles.y + 180f, 0);
+        facingPlayer = false;
+        hit = true;
+
+        if (visionCone != null)
+        {
+            visionCone.SetActive(false);
+        }
+    }
+
+    public void TakeDamage()
+    {
+        lives -= 1;
+        UpdateLivesText();
+        UpdateHealthProgressBar();  // Update progress bar when taking damage
+
+        if (lives <= 0)
+        {
+            Die();
+            if (deathParticlePrefab != null)
+            {
+                Instantiate(deathParticlePrefab, transform.position, transform.rotation);
+                deathParticlePrefab.Play();
+            }
+        }
+    }
+
+    private void UpdateLivesText()
+    {
+        if (livesText != null)
+        {
+            livesText.text = lives.ToString();
+        }
+    }
+
+    private void UpdateHealthProgressBar()
+    {
+        if (healthProgressBar != null)
+        {
+            healthProgressBar.value = lives;
+        }
+    }
+
+    private void Die()
+    {
+        Debug.Log("Enemy died!");
+
+        if (visionCone != null)
+        {
+            visionCone.SetActive(false);
+        }
+        Destroy(gameObject);
+        Destroy(deadCount);
+
+        if (DataManager.Instance != null)
+        {
+            DataManager.Instance.AddCoins(15);
+        }
+        else
+        {
+            Debug.LogWarning("DataManager instance is null. Coins not added.");
+        }
+    }
+
+    private void DetectPlayerInVisionCone()
+    {
+        Vector3 directionToPlayer = (player.transform.position - transform.position).normalized;
+        float angleToPlayer = Vector3.Angle(transform.forward, directionToPlayer);
+    }
+
+    private void TriggerGameOver()
+    {
+        Debug.Log("Game Over! Player detected by enemy.");
+        if (gameOverManager != null)
+        {
+            gameOverManager.GameOver();
         }
     }
 }
